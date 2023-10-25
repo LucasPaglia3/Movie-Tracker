@@ -1,7 +1,17 @@
 import { useEffect, useRef } from "react";
+import { useKey } from "../Hooks/useKey";
 
 const SearchBar = ({ query, setQuery }) => {
   const inputEl = useRef(null);
+
+  useKey("Enter", () => {
+    if (document.activeElement === inputEl.current) {
+      return;
+    }
+
+    document.addEventListener("keydown", callback);
+    inputEl.current.focus();
+  });
 
   useEffect(() => {
     const callback = (e) => {
